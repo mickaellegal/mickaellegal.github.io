@@ -1,4 +1,4 @@
 mickaellegal.github.io
 ======================
 
-Website
+Experimenting with Github's website hosting service.
