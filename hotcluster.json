@@ -1,0 +1,76 @@
+{
+  "name": "Popular Topics",
+  "children": [
+  {
+          "name": "Privacy & Surveillance",
+          "children": [
+          {"name": "Agency", "size": 1},
+          {"name": "Communication", "size": 1},
+          {"name": "Court", "size": 1},
+          {"name": "Data", "size": 1},
+          {"name": "Government", "size": 1},
+          {"name": "Intelligence", "size": 1},
+          {"name": "NSA", "size": 1},
+          {"name": "Security", "size": 1},
+          {"name": "Snowden", "size": 1},
+          {"name": "Surveillance", "size": 1}
+          ]
+  },
+  {
+          "name": "Education",
+          "children": [
+          {"name": "Child", "size": 1},
+          {"name": "Class", "size": 1},
+          {"name": "College", "size": 1},
+          {"name": "Education", "size": 1},
+          {"name": "Kid", "size": 1},
+          {"name": "Parent", "size": 1},
+          {"name": "School", "size": 1},
+          {"name": "Student", "size": 1},
+          {"name": "Teacher", "size": 1},
+          {"name": "University", "size": 1} 
+          ]
+  },
+  {
+          "name": "Internet",
+          "children": [
+          {"name": "Community", "size": 1},
+          {"name": "Domain", "size": 1},
+          {"name": "Facebook", "size": 1},
+          {"name": "Google", "size": 1},
+          {"name": "Internet", "size": 1},
+          {"name": "Reddit", "size": 1},
+          {"name": "Site", "size": 1},
+          {"name": "Sopa", "size": 1},
+          {"name": "User", "size": 1}
+          ]
+  },
+    {
+          "name": "Violence",
+          "children": [
+          {"name": "Court", "size": 1},
+          {"name": "Crime", "size": 1},
+          {"name": "Drug", "size": 1},
+          {"name": "Men", "size": 1},
+          {"name": "Police", "size": 1},
+          {"name": "Prison", "size": 1},
+          {"name": "Sex", "size": 1},
+          {"name": "Woman", "size": 1}
+          ]
+  },
+  {
+          "name": "Election",
+          "children": [
+          {"name": "Candidate", "size": 1},
+          {"name": "Election", "size": 1},
+          {"name": "Obama", "size": 1},
+          {"name": "Party", "size": 1},
+          {"name": "President", "size": 1},
+          {"name": "Republicans", "size": 1},
+          {"name": "Romney", "size": 1},
+          {"name": "Tax", "size": 1},
+          {"name": "Voter", "size": 1}
+          ]
+  }
+  ]
+}
