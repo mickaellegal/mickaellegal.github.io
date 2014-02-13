@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
+  <head>
+    <title>PopArt Topic Cluster</title>
+  </head>  
 <style>
+
+body {
+  background-color: #EEE;
+
+}
 
 svg{ 
     display: block;
@@ -19,7 +28,7 @@ svg{
 }
 
 .node text {
-  font: 12px sans-serif;
+  font: 14px sans-serif;
   font-family: 'Open Sans';
   font-weight: bold;
 }
@@ -30,14 +39,24 @@ svg{
   stroke-width: 1.5px;
 }
 
+p {
+  position: absolute;
+  font-family: 'Open Sans', sans-serif;
+  font-size:16px;
+  font-weight: bold;
+  color:#f4686b;
+}
+
 </style>
+
+<p>Click on the nodes to expand</p>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-    width = 700 - margin.right - margin.left,
-    height = 600 - margin.top - margin.bottom;
+    width = 800 - margin.right - margin.left,
+    height = 700 - margin.top - margin.bottom;
     
 var i = 0,
     duration = 750,
@@ -55,7 +74,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("hotcluster.json", function(error, flare) {
+d3.json("data/hotcluster.json", function(error, flare) {
   root = flare;
   root.x0 = height / 2;
   root.y0 = 0;
