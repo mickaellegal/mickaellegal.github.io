@@ -169,8 +169,8 @@ var svg = d3.select("body").append("svg")
       .on("mouseover", function(d) {
 
           //Get this bar's x/y values, then augment for the tooltip
-          var xPosition = parseFloat(d3.select(this).attr("x")) + x.rangeBand() / 2;
-          var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
+          var xPosition = parseFloat(d3.select(this).attr("x")) + x.rangeBand() *1.5;
+          var yPosition = parseFloat(d3.select(this).attr("y")) /2 + height / 2;
 
           //Update the tooltip position and value
           d3.select("#tooltip")
