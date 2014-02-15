@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+svg{
+	display: block;
+	margin: auto auto;
+}
+
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  width: 960px;
+  background-color: #EEE;
+}
+
+.axis text {
+  font: 12px sans-serif;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+.bar:hover {
+        fill: #F1898A;
+      }
+
+.x.axis path {
+  display: none;
+}
+
+label {
+  position: absolute;
+  top: 10px;
+  right: 220px;
+  font-family: 'Open Sans', sans-serif;
+  font-size:16px;
+  font-weight: bold;
+  color:#F1898A;
+}
+
+#tooltip {
+        position: absolute;
+        width: 40px;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+      }
+      
+      #tooltip.hidden {
+        display: none;
+      }
+      
+      #tooltip p {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+</style>
+    <div id="tooltip" class="hidden">
+      <p><strong>Value</strong></p>
+      <p><span id="value">100</span>%</p>
+    </div>
+<label><input type="checkbox"> Sort values</label>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var data = [
+              {name: "America",    value:  0.8},
+              {name: "American",    value:  0.5},
+              {name: "Death",     value: 0.3},
+              {name: "Education",   value: 0.4},
+              {name: "Get", value: 0.4},
+              {name: "Life",     value: 0.3},
+              {name: "NSA",     value:  0.6},
+              {name: "Obama",   value:  0.5},
+              {name: "Online",     value: 0.5},
+              {name: "People",     value: 0.4},
+              {name: "Public",    value: 0.3},
+              {name: "School",    value: 0.4},
+              {name: "Science",     value: 0.4},
+              {name: "Secret",    value: 0.5},
+              {name: "Surveillance",    value: 0.4},
+              {name: "Time",     value: 0.4},
+              {name: "U.S.",    value: 0.6},
+              {name: "War",    value: 0.6},
+              {name: "World",    value: 0.8}
+          ];
+
+
+//Create margins
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 1300 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// var formatPercent = d3.format(".0%"); # To delete
+
+//Create the scales
+var x = d3.scale.ordinal()
+    .domain(data.map(function(d) { return d.name; }))
+    .rangeRoundBands([0, width], .1, 1);
+
+var y = d3.scale.linear()
+    .domain([0, d3.max(data, function(d) { return d.value; })])
+    .range([height, 0]);
+
+//Create the axes
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(5)
+    // .tickFormat(formatPercent); # To delete
+
+//Create SVG element
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Frequency (%)");
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.name); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .attr("fill", function(d) {
+          return "rgb(149, 206, " + (d.value * 370) + ")"; })
+      .on("mouseover", function(d) {
+
+          //Get this bar's x/y values, then augment for the tooltip
+          var xPosition = parseFloat(d3.select(this).attr("x")) + x.rangeBand() / 2;
+          var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
+
+          //Update the tooltip position and value
+          d3.select("#tooltip")
+            .style("left", xPosition + "px")
+            .style("top", yPosition + "px")           
+            .select("#value")
+            .text(d.value);
+         
+          //Show the tooltip
+          d3.select("#tooltip").classed("hidden", false);
+
+         })
+         .on("mouseout", function() {
+         
+          //Hide the tooltip
+          d3.select("#tooltip").classed("hidden", true);
+          
+         })
+
+  d3.select("input").on("change", change);
+
+  //To delete
+  // var sortTimeout = setTimeout(function() {
+  //   d3.select("input").property("checked", true).each(change);
+  // }, 2000);
+
+  function change() {
+    // clearTimeout(sortTimeout); # To delete
+
+    // Copy-on-write since tweens are evaluated after a delay.
+    var x0 = x.domain(data.sort(this.checked
+        ? function(a, b) { return b.value - a.value; }
+        : function(a, b) { return d3.ascending(a.name, b.name); })
+        .map(function(d) { return d.name; }))
+        .copy();
+
+    var transition = svg.transition().duration(750),
+        delay = function(d, i) { return i * 50; };
+
+    transition.selectAll(".bar")
+        .delay(delay)
+        .attr("x", function(d) { return x0(d.name); });
+
+    transition.select(".x.axis")
+        .call(xAxis)
+      .selectAll("g")
+        .delay(delay);
+  };
+
+</script>
