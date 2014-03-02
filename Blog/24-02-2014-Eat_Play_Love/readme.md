@@ -12,17 +12,17 @@ You can read the full article [here](http://www.mickaellegal.com/blog/2014/2/22/
 ### Eat
 ========
 
-![Restaurants in SF](/images/sf_restaurants.png)
+![Restaurants in SF](http://github.com/mickaellegal/mickaellegal.github.io/blob/New_Pages/Blog/24-02-2014-Eat_Play_Love/images/sf_restaurants.png)
 
 
 ========
 ### Play
 ========
 
-![Restaurants in SF](/images/sf_arts.png)
+![Arts in SF](http://github.com/mickaellegal/mickaellegal.github.io/blob/New_Pages/Blog/24-02-2014-Eat_Play_Love/images/sf_arts.png)
 
 ========
 ### Nightlife
 ========
 
-![Restaurants in SF](/images/sf_nightspots.png)
+![Nightlife in SF](https://github.com/mickaellegal/mickaellegal.github.io/blob/New_Pages/Blog/24-02-2014-Eat_Play_Love/images/sf_nightspots.png)
