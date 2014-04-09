@@ -1,0 +1,452 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+
+    <link rel='stylesheet' href='http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' />
+    <script src='http://d3js.org/d3.v3.min.js' type='text/javascript'></script>
+    <script src='http://d3js.org/topojson.v1.min.js' type='text/javascript'></script>
+    <script src='http://datamaps.github.io/scripts/datamaps.all.min.js' type='text/javascript'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js' type='text/javascript'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js' type='text/javascript'></script>
+
+    <style>
+    .myChart {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 800px;
+      height: 400px;
+    }
+    .list-inline {
+  padding-left: 0;
+  list-style: none;
+}
+
+li.key {
+  border-top-width: 15px;
+  border-top-style: solid;
+  font-size: .75em;
+  width: 30px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.list-inline>li {
+ display: inline-block;
+ padding-right: 0px;
+ padding-left: 0px;
+ text-align: left;
+}
+.datamaps-legend {
+  top: 0px;
+}
+    </style>
+
+  </head>
+  <body ng-app ng-controller='myChartsCtrl'>
+
+
+      <div class='container'>
+        <div class='row'>
+          <div class='col-md-8'>
+          <h4>
+            Tweets per State on day {{ date }}
+            <button class='btn' ng-click='animateMap()'>
+              <i class="fa fa-play"></i>
+            </button>
+          </h4>
+          <div id='chart_1' class='myChart datamaps'></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        function myChartsCtrl($scope, $timeout){
+          $scope.date = 1;
+          $scope.animateMap = function(){
+            if ($scope.date > 11){
+              return;
+            }
+            mapchart_1.updateChoropleth(chartParams.newData[$scope.date]);
+            $scope.date += 1
+            $timeout($scope.animateMap, 1000)
+          }
+        }
+      </script>
+    <script id='popup-template' type='text/x-handlebars-template'>
+
+</script>
+<style>
+.hoverinfo {
+  background: black;
+  color: whitesmoke;
+  border: none;
+}
+</style>
+<script>
+  var chartParams = {
+ "dom": "chart_1",
+"width":    800,
+"height":    400,
+"scope": "usa",
+"geographyConfig": {
+  borderColor: "#ccc",
+  borderWidth: 0.5
+},
+"fills": {
+  "A": "#D1F2A5",
+  "B": "#EFFAB4",
+  "C": "#FFC48C",
+  "D": "#FF9F80",
+  "E": "#F56991",
+  "defaultFill": "white"
+},
+done: function(datamap) {
+  datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+                alert(geography.properties.name);
+  });
+},
+"data":{'WA': {'Count': 39, 'Date': '2014-03-21', 'fillKey': 'B'}, 'DE': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}, 'DC': {'Count': 71, 'Date': '2014-03-21', 'fillKey': 'C'},
+     'WI': {'Count': 41, 'Date': '2014-03-21', 'fillKey': 'B'}, 'WV': {'Count': 26, 'Date': '2014-03-21', 'fillKey': 'B'}, 'HI': {'Count': 2, 'Date': '2014-03-21', 'fillKey': 'A'},
+     'FL': {'Count': 58, 'Date': '2014-03-21', 'fillKey': 'C'}, 'WY': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}, 'NH': {'Count': 7, 'Date': '2014-03-21', 'fillKey': 'A'},
+     'NJ': {'Count': 39, 'Date': '2014-03-21', 'fillKey': 'B'}, 'NM': {'Count': 13, 'Date': '2014-03-21', 'fillKey': 'B'}, 'TX': {'Count': 157, 'Date': '2014-03-21', 'fillKey': 'E'},
+     'LA': {'Count': 15, 'Date': '2014-03-21', 'fillKey': 'B'}, 'NC': {'Count': 147, 'Date': '2014-03-21', 'fillKey': 'E'}, 'ND': {'Count': 7, 'Date': '2014-03-21', 'fillKey': 'A'},
+     'NE': {'Count': 24, 'Date': '2014-03-21', 'fillKey': 'B'}, 'TN': {'Count': 97, 'Date': '2014-03-21', 'fillKey': 'D'}, 'NY': {'Count': 168, 'Date': '2014-03-21', 'fillKey': 'E'},
+     'PA': {'Count': 84, 'Date': '2014-03-21', 'fillKey': 'D'}, 'CA': {'Count': 188, 'Date': '2014-03-21', 'fillKey': 'E'}, 'NV': {'Count': 24, 'Date': '2014-03-21', 'fillKey': 'B'},
+     'VA': {'Count': 93, 'Date': '2014-03-21', 'fillKey': 'D'}, 'CO': {'Count': 24, 'Date': '2014-03-21', 'fillKey': 'B'}, 'AK': {'Count': 0, 'Date': '2014-03-21', 'fillKey': 'A'},
+     'AL': {'Count': 28, 'Date': '2014-03-21', 'fillKey': 'B'}, 'AR': {'Count': 11, 'Date': '2014-03-21', 'fillKey': 'B'}, 'VT': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'},
+     'IL': {'Count': 102, 'Date': '2014-03-21', 'fillKey': 'E'}, 'GA': {'Count': 64, 'Date': '2014-03-21', 'fillKey': 'C'}, 'IN': {'Count': 63, 'Date': '2014-03-21', 'fillKey': 'C'},
+     'IA': {'Count': 42, 'Date': '2014-03-21', 'fillKey': 'B'}, 'OK': {'Count': 36, 'Date': '2014-03-21', 'fillKey': 'B'}, 'AZ': {'Count': 51, 'Date': '2014-03-21', 'fillKey': 'C'},
+     'ID': {'Count': 10, 'Date': '2014-03-21', 'fillKey': 'B'}, 'CT': {'Count': 36, 'Date': '2014-03-21', 'fillKey': 'B'}, 'ME': {'Count': 2, 'Date': '2014-03-21', 'fillKey': 'A'},
+     'MD': {'Count': 30, 'Date': '2014-03-21', 'fillKey': 'B'}, 'MA': {'Count': 53, 'Date': '2014-03-21', 'fillKey': 'C'}, 'OH': {'Count': 79, 'Date': '2014-03-21', 'fillKey': 'D'},
+     'UT': {'Count': 7, 'Date': '2014-03-21', 'fillKey': 'A'}, 'MO': {'Count': 64, 'Date': '2014-03-21', 'fillKey': 'C'}, 'MN': {'Count': 41, 'Date': '2014-03-21', 'fillKey': 'B'},
+     'MI': {'Count': 61, 'Date': '2014-03-21', 'fillKey': 'C'}, 'RI': {'Count': 17, 'Date': '2014-03-21', 'fillKey': 'B'}, 'KS': {'Count': 118, 'Date': '2014-03-21', 'fillKey': 'E'},
+     'MT': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}, 'MS': {'Count': 6, 'Date': '2014-03-21', 'fillKey': 'A'}, 'SC': {'Count': 65, 'Date': '2014-03-21', 'fillKey': 'C'},
+     'KY': {'Count': 74, 'Date': '2014-03-21', 'fillKey': 'C'}, 'OR': {'Count': 22, 'Date': '2014-03-21', 'fillKey': 'B'}, 'SD': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}
+  },
+
+"legend": true,
+"labels": true,
+"id": "chart_1",
+"bodyattrs": "ng-app ng-controller='myChartsCtrl'",
+"newData": {
+ "1":{'WA': {'Count': 39, 'Date': '2014-03-21', 'fillKey': 'B'}, 'DE': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}, 'DC': {'Count': 71, 'Date': '2014-03-21', 'fillKey': 'C'},
+  'WI': {'Count': 41, 'Date': '2014-03-21', 'fillKey': 'B'}, 'WV': {'Count': 26, 'Date': '2014-03-21', 'fillKey': 'B'}, 'HI': {'Count': 2, 'Date': '2014-03-21', 'fillKey': 'A'},
+  'FL': {'Count': 58, 'Date': '2014-03-21', 'fillKey': 'C'}, 'WY': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}, 'NH': {'Count': 7, 'Date': '2014-03-21', 'fillKey': 'A'},
+  'NJ': {'Count': 39, 'Date': '2014-03-21', 'fillKey': 'B'}, 'NM': {'Count': 13, 'Date': '2014-03-21', 'fillKey': 'B'}, 'TX': {'Count': 157, 'Date': '2014-03-21', 'fillKey': 'E'},
+  'LA': {'Count': 15, 'Date': '2014-03-21', 'fillKey': 'B'}, 'NC': {'Count': 147, 'Date': '2014-03-21', 'fillKey': 'E'}, 'ND': {'Count': 7, 'Date': '2014-03-21', 'fillKey': 'A'},
+  'NE': {'Count': 24, 'Date': '2014-03-21', 'fillKey': 'B'}, 'TN': {'Count': 97, 'Date': '2014-03-21', 'fillKey': 'D'}, 'NY': {'Count': 168, 'Date': '2014-03-21', 'fillKey': 'E'},
+  'PA': {'Count': 84, 'Date': '2014-03-21', 'fillKey': 'D'}, 'CA': {'Count': 188, 'Date': '2014-03-21', 'fillKey': 'E'}, 'NV': {'Count': 24, 'Date': '2014-03-21', 'fillKey': 'B'},
+  'VA': {'Count': 93, 'Date': '2014-03-21', 'fillKey': 'D'}, 'CO': {'Count': 24, 'Date': '2014-03-21', 'fillKey': 'B'}, 'AK': {'Count': 0, 'Date': '2014-03-21', 'fillKey': 'A'},
+  'AL': {'Count': 28, 'Date': '2014-03-21', 'fillKey': 'B'}, 'AR': {'Count': 11, 'Date': '2014-03-21', 'fillKey': 'B'}, 'VT': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'},
+  'IL': {'Count': 102, 'Date': '2014-03-21', 'fillKey': 'E'}, 'GA': {'Count': 64, 'Date': '2014-03-21', 'fillKey': 'C'}, 'IN': {'Count': 63, 'Date': '2014-03-21', 'fillKey': 'C'},
+  'IA': {'Count': 42, 'Date': '2014-03-21', 'fillKey': 'B'}, 'OK': {'Count': 36, 'Date': '2014-03-21', 'fillKey': 'B'}, 'AZ': {'Count': 51, 'Date': '2014-03-21', 'fillKey': 'C'},
+  'ID': {'Count': 10, 'Date': '2014-03-21', 'fillKey': 'B'}, 'CT': {'Count': 36, 'Date': '2014-03-21', 'fillKey': 'B'}, 'ME': {'Count': 2, 'Date': '2014-03-21', 'fillKey': 'A'},
+  'MD': {'Count': 30, 'Date': '2014-03-21', 'fillKey': 'B'}, 'MA': {'Count': 53, 'Date': '2014-03-21', 'fillKey': 'C'}, 'OH': {'Count': 79, 'Date': '2014-03-21', 'fillKey': 'D'},
+  'UT': {'Count': 7, 'Date': '2014-03-21', 'fillKey': 'A'}, 'MO': {'Count': 64, 'Date': '2014-03-21', 'fillKey': 'C'}, 'MN': {'Count': 41, 'Date': '2014-03-21', 'fillKey': 'B'},
+  'MI': {'Count': 61, 'Date': '2014-03-21', 'fillKey': 'C'}, 'RI': {'Count': 17, 'Date': '2014-03-21', 'fillKey': 'B'}, 'KS': {'Count': 118, 'Date': '2014-03-21', 'fillKey': 'E'},
+  'MT': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}, 'MS': {'Count': 6, 'Date': '2014-03-21', 'fillKey': 'A'}, 'SC': {'Count': 65, 'Date': '2014-03-21', 'fillKey': 'C'},
+  'KY': {'Count': 74, 'Date': '2014-03-21', 'fillKey': 'C'}, 'OR': {'Count': 22, 'Date': '2014-03-21', 'fillKey': 'B'}, 'SD': {'Count': 4, 'Date': '2014-03-21', 'fillKey': 'A'}},
+ "2":{'WA': {'Count': 116, 'Date': '2014-03-22', 'fillKey': 'E'}, 'DE': {'Count': 4, 'Date': '2014-03-22', 'fillKey': 'A'}, 'DC': {'Count': 103, 'Date': '2014-03-22', 'fillKey': 'E'},
+ 'WI': {'Count': 120, 'Date': '2014-03-22', 'fillKey': 'E'}, 'WV': {'Count': 36, 'Date': '2014-03-22', 'fillKey': 'B'}, 'HI': {'Count': 7, 'Date': '2014-03-22', 'fillKey': 'A'},
+ 'FL': {'Count': 319, 'Date': '2014-03-22', 'fillKey': 'E'}, 'WY': {'Count': 3, 'Date': '2014-03-22', 'fillKey': 'A'}, 'NH': {'Count': 10, 'Date': '2014-03-22', 'fillKey': 'B'},
+ 'NJ': {'Count': 81, 'Date': '2014-03-22', 'fillKey': 'D'}, 'NM': {'Count': 27, 'Date': '2014-03-22', 'fillKey': 'B'}, 'TX': {'Count': 336, 'Date': '2014-03-22', 'fillKey': 'E'},
+ 'LA': {'Count': 49, 'Date': '2014-03-22', 'fillKey': 'B'}, 'NC': {'Count': 192, 'Date': '2014-03-22', 'fillKey': 'E'}, 'ND': {'Count': 31, 'Date': '2014-03-22', 'fillKey': 'B'},
+ 'NE': {'Count': 41, 'Date': '2014-03-22', 'fillKey': 'B'}, 'TN': {'Count': 147, 'Date': '2014-03-22', 'fillKey': 'E'}, 'NY': {'Count': 355, 'Date': '2014-03-22', 'fillKey': 'E'},
+ 'PA': {'Count': 302, 'Date': '2014-03-22', 'fillKey': 'E'}, 'CA': {'Count': 481, 'Date': '2014-03-22', 'fillKey': 'E'}, 'NV': {'Count': 52, 'Date': '2014-03-22', 'fillKey': 'C'},
+ 'VA': {'Count': 103, 'Date': '2014-03-22', 'fillKey': 'E'}, 'CO': {'Count': 85, 'Date': '2014-03-22', 'fillKey': 'D'}, 'AK': {'Count': 3, 'Date': '2014-03-22', 'fillKey': 'A'},
+ 'AL': {'Count': 47, 'Date': '2014-03-22', 'fillKey': 'B'}, 'AR': {'Count': 25, 'Date': '2014-03-22', 'fillKey': 'B'}, 'VT': {'Count': 4, 'Date': '2014-03-22', 'fillKey': 'A'},
+ 'IL': {'Count': 196, 'Date': '2014-03-22', 'fillKey': 'E'}, 'GA': {'Count': 171, 'Date': '2014-03-22', 'fillKey': 'E'}, 'IN': {'Count': 156, 'Date': '2014-03-22', 'fillKey': 'E'},
+ 'IA': {'Count': 55, 'Date': '2014-03-22', 'fillKey': 'C'}, 'OK': {'Count': 63, 'Date': '2014-03-22', 'fillKey': 'C'}, 'AZ': {'Count': 78, 'Date': '2014-03-22', 'fillKey': 'D'},
+ 'ID': {'Count': 4, 'Date': '2014-03-22', 'fillKey': 'A'}, 'CT': {'Count': 63, 'Date': '2014-03-22', 'fillKey': 'C'}, 'ME': {'Count': 11, 'Date': '2014-03-22', 'fillKey': 'B'},
+ 'MD': {'Count': 53, 'Date': '2014-03-22', 'fillKey': 'C'}, 'MA': {'Count': 169, 'Date': '2014-03-22', 'fillKey': 'E'}, 'OH': {'Count': 158, 'Date': '2014-03-22', 'fillKey': 'E'},
+ 'UT': {'Count': 22, 'Date': '2014-03-22', 'fillKey': 'B'}, 'MO': {'Count': 149, 'Date': '2014-03-22', 'fillKey': 'E'}, 'MN': {'Count': 96, 'Date': '2014-03-22', 'fillKey': 'D'},
+ 'MI': {'Count': 151, 'Date': '2014-03-22', 'fillKey': 'E'}, 'RI': {'Count': 16, 'Date': '2014-03-22', 'fillKey': 'B'}, 'KS': {'Count': 91, 'Date': '2014-03-22', 'fillKey': 'D'},
+ 'MT': {'Count': 8, 'Date': '2014-03-22', 'fillKey': 'A'}, 'MS': {'Count': 17, 'Date': '2014-03-22', 'fillKey': 'B'}, 'SC': {'Count': 79, 'Date': '2014-03-22', 'fillKey': 'D'},
+ 'KY': {'Count': 180, 'Date': '2014-03-22', 'fillKey': 'E'}, 'OR': {'Count': 60, 'Date': '2014-03-22', 'fillKey': 'C'}, 'SD': {'Count': 17, 'Date': '2014-03-22', 'fillKey': 'B'}},
+ "3":{'WA': {'Count': 82, 'Date': '2014-03-23', 'fillKey': 'D'}, 'DE': {'Count': 6, 'Date': '2014-03-23', 'fillKey': 'A'}, 'DC': {'Count': 78, 'Date': '2014-03-23', 'fillKey': 'D'},
+ 'WI': {'Count': 90, 'Date': '2014-03-23', 'fillKey': 'D'}, 'WV': {'Count': 33, 'Date': '2014-03-23', 'fillKey': 'B'}, 'HI': {'Count': 1, 'Date': '2014-03-23', 'fillKey': 'A'},
+ 'FL': {'Count': 133, 'Date': '2014-03-23', 'fillKey': 'E'}, 'WY': {'Count': 1, 'Date': '2014-03-23', 'fillKey': 'A'}, 'NH': {'Count': 7, 'Date': '2014-03-23', 'fillKey': 'A'},
+ 'NJ': {'Count': 66, 'Date': '2014-03-23', 'fillKey': 'C'}, 'NM': {'Count': 27, 'Date': '2014-03-23', 'fillKey': 'B'}, 'TX': {'Count': 302, 'Date': '2014-03-23', 'fillKey': 'E'},
+ 'LA': {'Count': 32, 'Date': '2014-03-23', 'fillKey': 'B'}, 'NC': {'Count': 141, 'Date': '2014-03-23', 'fillKey': 'E'}, 'ND': {'Count': 21, 'Date': '2014-03-23', 'fillKey': 'B'},
+ 'NE': {'Count': 50, 'Date': '2014-03-23', 'fillKey': 'C'}, 'TN': {'Count': 166, 'Date': '2014-03-23', 'fillKey': 'E'}, 'NY': {'Count': 304, 'Date': '2014-03-23', 'fillKey': 'E'},
+ 'PA': {'Count': 190, 'Date': '2014-03-23', 'fillKey': 'E'}, 'CA': {'Count': 430, 'Date': '2014-03-23', 'fillKey': 'E'}, 'NV': {'Count': 50, 'Date': '2014-03-23', 'fillKey': 'C'},
+ 'VA': {'Count': 100, 'Date': '2014-03-23', 'fillKey': 'E'}, 'CO': {'Count': 46, 'Date': '2014-03-23', 'fillKey': 'B'}, 'AK': {'Count': 5, 'Date': '2014-03-23', 'fillKey': 'A'},
+ 'AL': {'Count': 66, 'Date': '2014-03-23', 'fillKey': 'C'}, 'AR': {'Count': 25, 'Date': '2014-03-23', 'fillKey': 'B'}, 'VT': {'Count': 2, 'Date': '2014-03-23', 'fillKey': 'A'},
+ 'IL': {'Count': 194, 'Date': '2014-03-23', 'fillKey': 'E'}, 'GA': {'Count': 124, 'Date': '2014-03-23', 'fillKey': 'E'}, 'IN': {'Count': 113, 'Date': '2014-03-23', 'fillKey': 'E'},
+ 'IA': {'Count': 47, 'Date': '2014-03-23', 'fillKey': 'B'}, 'OK': {'Count': 41, 'Date': '2014-03-23', 'fillKey': 'B'}, 'AZ': {'Count': 85, 'Date': '2014-03-23', 'fillKey': 'D'},
+ 'ID': {'Count': 7, 'Date': '2014-03-23', 'fillKey': 'A'}, 'CT': {'Count': 100, 'Date': '2014-03-23', 'fillKey': 'E'}, 'ME': {'Count': 5, 'Date': '2014-03-23', 'fillKey': 'A'},
+ 'MD': {'Count': 49, 'Date': '2014-03-23', 'fillKey': 'B'}, 'MA': {'Count': 124, 'Date': '2014-03-23', 'fillKey': 'E'}, 'OH': {'Count': 137, 'Date': '2014-03-23', 'fillKey': 'E'},
+ 'UT': {'Count': 17, 'Date': '2014-03-23', 'fillKey': 'B'}, 'MO': {'Count': 155, 'Date': '2014-03-23', 'fillKey': 'E'}, 'MN': {'Count': 67, 'Date': '2014-03-23', 'fillKey': 'C'},
+ 'MI': {'Count': 106, 'Date': '2014-03-23', 'fillKey': 'E'}, 'RI': {'Count': 11, 'Date': '2014-03-23', 'fillKey': 'B'}, 'KS': {'Count': 164, 'Date': '2014-03-23', 'fillKey': 'E'},
+ 'MT': {'Count': 8, 'Date': '2014-03-23', 'fillKey': 'A'}, 'MS': {'Count': 18, 'Date': '2014-03-23', 'fillKey': 'B'}, 'SC': {'Count': 52, 'Date': '2014-03-23', 'fillKey': 'C'},
+ 'KY': {'Count': 176, 'Date': '2014-03-23', 'fillKey': 'E'}, 'OR': {'Count': 25, 'Date': '2014-03-23', 'fillKey': 'B'}, 'SD': {'Count': 11, 'Date': '2014-03-23', 'fillKey': 'B'}},
+ "4":{'WA': {'Count': 19, 'Date': '2014-03-24', 'fillKey': 'B'}, 'DE': {'Count': 0, 'Date': '2014-03-24', 'fillKey': 'A'}, 'DC': {'Count': 32, 'Date': '2014-03-24', 'fillKey': 'B'},
+ 'WI': {'Count': 27, 'Date': '2014-03-24', 'fillKey': 'B'}, 'WV': {'Count': 7, 'Date': '2014-03-24', 'fillKey': 'A'}, 'HI': {'Count': 0, 'Date': '2014-03-24', 'fillKey': 'A'},
+ 'FL': {'Count': 45, 'Date': '2014-03-24', 'fillKey': 'B'}, 'WY': {'Count': 0, 'Date': '2014-03-24', 'fillKey': 'A'}, 'NH': {'Count': 1, 'Date': '2014-03-24', 'fillKey': 'A'},
+ 'NJ': {'Count': 11, 'Date': '2014-03-24', 'fillKey': 'B'}, 'NM': {'Count': 3, 'Date': '2014-03-24', 'fillKey': 'A'}, 'TX': {'Count': 83, 'Date': '2014-03-24', 'fillKey': 'D'},
+ 'LA': {'Count': 18, 'Date': '2014-03-24', 'fillKey': 'B'}, 'NC': {'Count': 28, 'Date': '2014-03-24', 'fillKey': 'B'}, 'ND': {'Count': 2, 'Date': '2014-03-24', 'fillKey': 'A'},
+ 'NE': {'Count': 6, 'Date': '2014-03-24', 'fillKey': 'A'}, 'TN': {'Count': 26, 'Date': '2014-03-24', 'fillKey': 'B'}, 'NY': {'Count': 71, 'Date': '2014-03-24', 'fillKey': 'C'},
+ 'PA': {'Count': 31, 'Date': '2014-03-24', 'fillKey': 'B'}, 'CA': {'Count': 159, 'Date': '2014-03-24', 'fillKey': 'E'}, 'NV': {'Count': 10, 'Date': '2014-03-24', 'fillKey': 'B'},
+ 'VA': {'Count': 23, 'Date': '2014-03-24', 'fillKey': 'B'}, 'CO': {'Count': 20, 'Date': '2014-03-24', 'fillKey': 'B'}, 'AK': {'Count': 1, 'Date': '2014-03-24', 'fillKey': 'A'},
+ 'AL': {'Count': 15, 'Date': '2014-03-24', 'fillKey': 'B'}, 'AR': {'Count': 4, 'Date': '2014-03-24', 'fillKey': 'A'}, 'VT': {'Count': 2, 'Date': '2014-03-24', 'fillKey': 'A'},
+ 'IL': {'Count': 37, 'Date': '2014-03-24', 'fillKey': 'B'}, 'GA': {'Count': 49, 'Date': '2014-03-24', 'fillKey': 'B'}, 'IN': {'Count': 22, 'Date': '2014-03-24', 'fillKey': 'B'},
+ 'IA': {'Count': 12, 'Date': '2014-03-24', 'fillKey': 'B'}, 'OK': {'Count': 10, 'Date': '2014-03-24', 'fillKey': 'B'}, 'AZ': {'Count': 28, 'Date': '2014-03-24', 'fillKey': 'B'},
+ 'ID': {'Count': 1, 'Date': '2014-03-24', 'fillKey': 'A'}, 'CT': {'Count': 12, 'Date': '2014-03-24', 'fillKey': 'B'}, 'ME': {'Count': 1, 'Date': '2014-03-24', 'fillKey': 'A'},
+ 'MD': {'Count': 9, 'Date': '2014-03-24', 'fillKey': 'A'}, 'MA': {'Count': 36, 'Date': '2014-03-24', 'fillKey': 'B'}, 'OH': {'Count': 31, 'Date': '2014-03-24', 'fillKey': 'B'},
+ 'UT': {'Count': 8, 'Date': '2014-03-24', 'fillKey': 'A'}, 'MO': {'Count': 18, 'Date': '2014-03-24', 'fillKey': 'B'}, 'MN': {'Count': 16, 'Date': '2014-03-24', 'fillKey': 'B'},
+ 'MI': {'Count': 24, 'Date': '2014-03-24', 'fillKey': 'B'}, 'RI': {'Count': 2, 'Date': '2014-03-24', 'fillKey': 'A'}, 'KS': {'Count': 8, 'Date': '2014-03-24', 'fillKey': 'A'},
+ 'MT': {'Count': 1, 'Date': '2014-03-24', 'fillKey': 'A'}, 'MS': {'Count': 10, 'Date': '2014-03-24', 'fillKey': 'B'}, 'SC': {'Count': 12, 'Date': '2014-03-24', 'fillKey': 'B'},
+ 'KY': {'Count': 39, 'Date': '2014-03-24', 'fillKey': 'B'}, 'OR': {'Count': 4, 'Date': '2014-03-24', 'fillKey': 'A'}, 'SD': {'Count': 2, 'Date': '2014-03-24', 'fillKey': 'A'}},
+ "5":{'WA': {'Count': 29, 'Date': '2014-03-25', 'fillKey': 'B'}, 'DE': {'Count': 2, 'Date': '2014-03-25', 'fillKey': 'A'}, 'DC': {'Count': 44, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'WI': {'Count': 35, 'Date': '2014-03-25', 'fillKey': 'B'}, 'WV': {'Count': 6, 'Date': '2014-03-25', 'fillKey': 'A'}, 'HI': {'Count': 0, 'Date': '2014-03-25', 'fillKey': 'A'},
+ 'FL': {'Count': 69, 'Date': '2014-03-25', 'fillKey': 'C'}, 'WY': {'Count': 0, 'Date': '2014-03-25', 'fillKey': 'A'}, 'NH': {'Count': 6, 'Date': '2014-03-25', 'fillKey': 'A'},
+ 'NJ': {'Count': 16, 'Date': '2014-03-25', 'fillKey': 'B'}, 'NM': {'Count': 5, 'Date': '2014-03-25', 'fillKey': 'A'}, 'TX': {'Count': 81, 'Date': '2014-03-25', 'fillKey': 'D'},
+ 'LA': {'Count': 22, 'Date': '2014-03-25', 'fillKey': 'B'}, 'NC': {'Count': 63, 'Date': '2014-03-25', 'fillKey': 'C'}, 'ND': {'Count': 6, 'Date': '2014-03-25', 'fillKey': 'A'},
+ 'NE': {'Count': 10, 'Date': '2014-03-25', 'fillKey': 'B'}, 'TN': {'Count': 33, 'Date': '2014-03-25', 'fillKey': 'B'}, 'NY': {'Count': 113, 'Date': '2014-03-25', 'fillKey': 'E'},
+ 'PA': {'Count': 47, 'Date': '2014-03-25', 'fillKey': 'B'}, 'CA': {'Count': 205, 'Date': '2014-03-25', 'fillKey': 'E'}, 'NV': {'Count': 12, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'VA': {'Count': 48, 'Date': '2014-03-25', 'fillKey': 'B'}, 'CO': {'Count': 29, 'Date': '2014-03-25', 'fillKey': 'B'}, 'AK': {'Count': 1, 'Date': '2014-03-25', 'fillKey': 'A'},
+ 'AL': {'Count': 24, 'Date': '2014-03-25', 'fillKey': 'B'}, 'AR': {'Count': 14, 'Date': '2014-03-25', 'fillKey': 'B'}, 'VT': {'Count': 3, 'Date': '2014-03-25', 'fillKey': 'A'},
+ 'IL': {'Count': 34, 'Date': '2014-03-25', 'fillKey': 'B'}, 'GA': {'Count': 82, 'Date': '2014-03-25', 'fillKey': 'D'}, 'IN': {'Count': 34, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'IA': {'Count': 8, 'Date': '2014-03-25', 'fillKey': 'A'}, 'OK': {'Count': 8, 'Date': '2014-03-25', 'fillKey': 'A'}, 'AZ': {'Count': 24, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'ID': {'Count': 0, 'Date': '2014-03-25', 'fillKey': 'A'}, 'CT': {'Count': 19, 'Date': '2014-03-25', 'fillKey': 'B'}, 'ME': {'Count': 2, 'Date': '2014-03-25', 'fillKey': 'A'},
+ 'MD': {'Count': 20, 'Date': '2014-03-25', 'fillKey': 'B'}, 'MA': {'Count': 51, 'Date': '2014-03-25', 'fillKey': 'C'}, 'OH': {'Count': 32, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'UT': {'Count': 6, 'Date': '2014-03-25', 'fillKey': 'A'}, 'MO': {'Count': 19, 'Date': '2014-03-25', 'fillKey': 'B'}, 'MN': {'Count': 44, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'MI': {'Count': 35, 'Date': '2014-03-25', 'fillKey': 'B'}, 'RI': {'Count': 6, 'Date': '2014-03-25', 'fillKey': 'A'}, 'KS': {'Count': 15, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'MT': {'Count': 0, 'Date': '2014-03-25', 'fillKey': 'A'}, 'MS': {'Count': 7, 'Date': '2014-03-25', 'fillKey': 'A'}, 'SC': {'Count': 31, 'Date': '2014-03-25', 'fillKey': 'B'},
+ 'KY': {'Count': 55, 'Date': '2014-03-25', 'fillKey': 'C'}, 'OR': {'Count': 13, 'Date': '2014-03-25', 'fillKey': 'B'}, 'SD': {'Count': 5, 'Date': '2014-03-25', 'fillKey': 'A'}},
+ "6":{'WA': {'Count': 30, 'Date': '2014-03-26', 'fillKey': 'B'}, 'DE': {'Count': 3, 'Date': '2014-03-26', 'fillKey': 'A'}, 'DC': {'Count': 33, 'Date': '2014-03-26', 'fillKey': 'B'},
+ 'WI': {'Count': 32, 'Date': '2014-03-26', 'fillKey': 'B'}, 'WV': {'Count': 7, 'Date': '2014-03-26', 'fillKey': 'A'}, 'HI': {'Count': 0, 'Date': '2014-03-26', 'fillKey': 'A'},
+ 'FL': {'Count': 76, 'Date': '2014-03-26', 'fillKey': 'D'}, 'WY': {'Count': 0, 'Date': '2014-03-26', 'fillKey': 'A'}, 'NH': {'Count': 0, 'Date': '2014-03-26', 'fillKey': 'A'},
+ 'NJ': {'Count': 23, 'Date': '2014-03-26', 'fillKey': 'B'}, 'NM': {'Count': 4, 'Date': '2014-03-26', 'fillKey': 'A'}, 'TX': {'Count': 61, 'Date': '2014-03-26', 'fillKey': 'C'},
+ 'LA': {'Count': 6, 'Date': '2014-03-26', 'fillKey': 'A'}, 'NC': {'Count': 44, 'Date': '2014-03-26', 'fillKey': 'B'}, 'ND': {'Count': 1, 'Date': '2014-03-26', 'fillKey': 'A'},
+ 'NE': {'Count': 11, 'Date': '2014-03-26', 'fillKey': 'B'}, 'TN': {'Count': 67, 'Date': '2014-03-26', 'fillKey': 'C'}, 'NY': {'Count': 86, 'Date': '2014-03-26', 'fillKey': 'D'},
+ 'PA': {'Count': 49, 'Date': '2014-03-26', 'fillKey': 'B'}, 'CA': {'Count': 199, 'Date': '2014-03-26', 'fillKey': 'E'}, 'NV': {'Count': 16, 'Date': '2014-03-26', 'fillKey': 'B'},
+ 'VA': {'Count': 41, 'Date': '2014-03-26', 'fillKey': 'B'}, 'CO': {'Count': 32, 'Date': '2014-03-26', 'fillKey': 'B'}, 'AK': {'Count': 1, 'Date': '2014-03-26', 'fillKey': 'A'},
+ 'AL': {'Count': 9, 'Date': '2014-03-26', 'fillKey': 'A'}, 'AR': {'Count': 3, 'Date': '2014-03-26', 'fillKey': 'A'}, 'VT': {'Count': 2, 'Date': '2014-03-26', 'fillKey': 'A'},
+ 'IL': {'Count': 52, 'Date': '2014-03-26', 'fillKey': 'C'}, 'GA': {'Count': 61, 'Date': '2014-03-26', 'fillKey': 'C'}, 'IN': {'Count': 38, 'Date': '2014-03-26', 'fillKey': 'B'},
+ 'IA': {'Count': 9, 'Date': '2014-03-26', 'fillKey': 'A'}, 'OK': {'Count': 10, 'Date': '2014-03-26', 'fillKey': 'B'}, 'AZ': {'Count': 20, 'Date': '2014-03-26', 'fillKey': 'B'},
+ 'ID': {'Count': 4, 'Date': '2014-03-26', 'fillKey': 'A'}, 'CT': {'Count': 17, 'Date': '2014-03-26', 'fillKey': 'B'}, 'ME': {'Count': 0, 'Date': '2014-03-26', 'fillKey': 'A'},
+ 'MD': {'Count': 14, 'Date': '2014-03-26', 'fillKey': 'B'}, 'MA': {'Count': 62, 'Date': '2014-03-26', 'fillKey': 'C'}, 'OH': {'Count': 37, 'Date': '2014-03-26', 'fillKey': 'B'},
+ 'UT': {'Count': 13, 'Date': '2014-03-26', 'fillKey': 'B'}, 'MO': {'Count': 18, 'Date': '2014-03-26', 'fillKey': 'B'}, 'MN': {'Count': 48, 'Date': '2014-03-26', 'fillKey': 'B'},
+ 'MI': {'Count': 40, 'Date': '2014-03-26', 'fillKey': 'B'}, 'RI': {'Count': 5, 'Date': '2014-03-26', 'fillKey': 'A'}, 'KS': {'Count': 9, 'Date': '2014-03-26', 'fillKey': 'A'},
+ 'MT': {'Count': 4, 'Date': '2014-03-26', 'fillKey': 'A'}, 'MS': {'Count': 9, 'Date': '2014-03-26', 'fillKey': 'A'}, 'SC': {'Count': 15, 'Date': '2014-03-26', 'fillKey': 'B'},
+ 'KY': {'Count': 46, 'Date': '2014-03-26', 'fillKey': 'B'}, 'OR': {'Count': 5, 'Date': '2014-03-26', 'fillKey': 'A'}, 'SD': {'Count': 2, 'Date': '2014-03-26', 'fillKey': 'A'}},
+ "7":{'WA': {'Count': 26, 'Date': '2014-03-27', 'fillKey': 'B'}, 'DE': {'Count': 1, 'Date': '2014-03-27', 'fillKey': 'A'}, 'DC': {'Count': 32, 'Date': '2014-03-27', 'fillKey': 'B'},
+ 'WI': {'Count': 47, 'Date': '2014-03-27', 'fillKey': 'B'}, 'WV': {'Count': 8, 'Date': '2014-03-27', 'fillKey': 'A'}, 'HI': {'Count': 0, 'Date': '2014-03-27', 'fillKey': 'A'},
+ 'FL': {'Count': 68, 'Date': '2014-03-27', 'fillKey': 'C'}, 'WY': {'Count': 0, 'Date': '2014-03-27', 'fillKey': 'A'}, 'NH': {'Count': 3, 'Date': '2014-03-27', 'fillKey': 'A'},
+ 'NJ': {'Count': 30, 'Date': '2014-03-27', 'fillKey': 'B'}, 'NM': {'Count': 1, 'Date': '2014-03-27', 'fillKey': 'A'}, 'TX': {'Count': 78, 'Date': '2014-03-27', 'fillKey': 'D'},
+ 'LA': {'Count': 7, 'Date': '2014-03-27', 'fillKey': 'A'}, 'NC': {'Count': 55, 'Date': '2014-03-27', 'fillKey': 'C'}, 'ND': {'Count': 2, 'Date': '2014-03-27', 'fillKey': 'A'},
+ 'NE': {'Count': 6, 'Date': '2014-03-27', 'fillKey': 'A'}, 'TN': {'Count': 41, 'Date': '2014-03-27', 'fillKey': 'B'}, 'NY': {'Count': 85, 'Date': '2014-03-27', 'fillKey': 'D'},
+ 'PA': {'Count': 33, 'Date': '2014-03-27', 'fillKey': 'B'}, 'CA': {'Count': 154, 'Date': '2014-03-27', 'fillKey': 'E'}, 'NV': {'Count': 22, 'Date': '2014-03-27', 'fillKey': 'B'},
+ 'VA': {'Count': 35, 'Date': '2014-03-27', 'fillKey': 'B'}, 'CO': {'Count': 27, 'Date': '2014-03-27', 'fillKey': 'B'}, 'AK': {'Count': 0, 'Date': '2014-03-27', 'fillKey': 'A'},
+ 'AL': {'Count': 4, 'Date': '2014-03-27', 'fillKey': 'A'}, 'AR': {'Count': 5, 'Date': '2014-03-27', 'fillKey': 'A'}, 'VT': {'Count': 0, 'Date': '2014-03-27', 'fillKey': 'A'},
+ 'IL': {'Count': 44, 'Date': '2014-03-27', 'fillKey': 'B'}, 'GA': {'Count': 51, 'Date': '2014-03-27', 'fillKey': 'C'}, 'IN': {'Count': 31, 'Date': '2014-03-27', 'fillKey': 'B'},
+ 'IA': {'Count': 11, 'Date': '2014-03-27', 'fillKey': 'B'}, 'OK': {'Count': 8, 'Date': '2014-03-27', 'fillKey': 'A'}, 'AZ': {'Count': 23, 'Date': '2014-03-27', 'fillKey': 'B'},
+ 'ID': {'Count': 1, 'Date': '2014-03-27', 'fillKey': 'A'}, 'CT': {'Count': 14, 'Date': '2014-03-27', 'fillKey': 'B'}, 'ME': {'Count': 0, 'Date': '2014-03-27', 'fillKey': 'A'},
+ 'MD': {'Count': 12, 'Date': '2014-03-27', 'fillKey': 'B'}, 'MA': {'Count': 38, 'Date': '2014-03-27', 'fillKey': 'B'}, 'OH': {'Count': 78, 'Date': '2014-03-27', 'fillKey': 'D'},
+ 'UT': {'Count': 14, 'Date': '2014-03-27', 'fillKey': 'B'}, 'MO': {'Count': 19, 'Date': '2014-03-27', 'fillKey': 'B'}, 'MN': {'Count': 32, 'Date': '2014-03-27', 'fillKey': 'B'},
+ 'MI': {'Count': 30, 'Date': '2014-03-27', 'fillKey': 'B'}, 'RI': {'Count': 2, 'Date': '2014-03-27', 'fillKey': 'A'}, 'KS': {'Count': 9, 'Date': '2014-03-27', 'fillKey': 'A'},
+ 'MT': {'Count': 3, 'Date': '2014-03-27', 'fillKey': 'A'}, 'MS': {'Count': 14, 'Date': '2014-03-27', 'fillKey': 'B'}, 'SC': {'Count': 16, 'Date': '2014-03-27', 'fillKey': 'B'},
+ 'KY': {'Count': 48, 'Date': '2014-03-27', 'fillKey': 'B'}, 'OR': {'Count': 10, 'Date': '2014-03-27', 'fillKey': 'B'}, 'SD': {'Count': 6, 'Date': '2014-03-27', 'fillKey': 'A'}},
+ "8":{'WA': {'Count': 26, 'Date': '2014-03-28', 'fillKey': 'B'}, 'DE': {'Count': 1, 'Date': '2014-03-28', 'fillKey': 'A'}, 'DC': {'Count': 38, 'Date': '2014-03-28', 'fillKey': 'B'},
+ 'WI': {'Count': 36, 'Date': '2014-03-28', 'fillKey': 'B'}, 'WV': {'Count': 8, 'Date': '2014-03-28', 'fillKey': 'A'}, 'HI': {'Count': 3, 'Date': '2014-03-28', 'fillKey': 'A'},
+ 'FL': {'Count': 72, 'Date': '2014-03-28', 'fillKey': 'C'}, 'WY': {'Count': 0, 'Date': '2014-03-28', 'fillKey': 'A'}, 'NH': {'Count': 2, 'Date': '2014-03-28', 'fillKey': 'A'},
+ 'NJ': {'Count': 30, 'Date': '2014-03-28', 'fillKey': 'B'}, 'NM': {'Count': 8, 'Date': '2014-03-28', 'fillKey': 'A'}, 'TX': {'Count': 63, 'Date': '2014-03-28', 'fillKey': 'C'},
+ 'LA': {'Count': 7, 'Date': '2014-03-28', 'fillKey': 'A'}, 'NC': {'Count': 62, 'Date': '2014-03-28', 'fillKey': 'C'}, 'ND': {'Count': 0, 'Date': '2014-03-28', 'fillKey': 'A'},
+ 'NE': {'Count': 14, 'Date': '2014-03-28', 'fillKey': 'B'}, 'TN': {'Count': 102, 'Date': '2014-03-28', 'fillKey': 'E'}, 'NY': {'Count': 115, 'Date': '2014-03-28', 'fillKey': 'E'},
+ 'PA': {'Count': 46, 'Date': '2014-03-28', 'fillKey': 'B'}, 'CA': {'Count': 165, 'Date': '2014-03-28', 'fillKey': 'E'}, 'NV': {'Count': 11, 'Date': '2014-03-28', 'fillKey': 'B'},
+ 'VA': {'Count': 38, 'Date': '2014-03-28', 'fillKey': 'B'}, 'CO': {'Count': 18, 'Date': '2014-03-28', 'fillKey': 'B'}, 'AK': {'Count': 2, 'Date': '2014-03-28', 'fillKey': 'A'},
+ 'AL': {'Count': 25, 'Date': '2014-03-28', 'fillKey': 'B'}, 'AR': {'Count': 6, 'Date': '2014-03-28', 'fillKey': 'A'}, 'VT': {'Count': 1, 'Date': '2014-03-28', 'fillKey': 'A'},
+ 'IL': {'Count': 57, 'Date': '2014-03-28', 'fillKey': 'C'}, 'GA': {'Count': 65, 'Date': '2014-03-28', 'fillKey': 'C'}, 'IN': {'Count': 58, 'Date': '2014-03-28', 'fillKey': 'C'},
+ 'IA': {'Count': 20, 'Date': '2014-03-28', 'fillKey': 'B'}, 'OK': {'Count': 9, 'Date': '2014-03-28', 'fillKey': 'A'}, 'AZ': {'Count': 55, 'Date': '2014-03-28', 'fillKey': 'C'},
+ 'ID': {'Count': 4, 'Date': '2014-03-28', 'fillKey': 'A'}, 'CT': {'Count': 33, 'Date': '2014-03-28', 'fillKey': 'B'}, 'ME': {'Count': 2, 'Date': '2014-03-28', 'fillKey': 'A'},
+ 'MD': {'Count': 16, 'Date': '2014-03-28', 'fillKey': 'B'}, 'MA': {'Count': 59, 'Date': '2014-03-28', 'fillKey': 'C'}, 'OH': {'Count': 55, 'Date': '2014-03-28', 'fillKey': 'C'},
+ 'UT': {'Count': 7, 'Date': '2014-03-28', 'fillKey': 'A'}, 'MO': {'Count': 15, 'Date': '2014-03-28', 'fillKey': 'B'}, 'MN': {'Count': 28, 'Date': '2014-03-28', 'fillKey': 'B'},
+ 'MI': {'Count': 68, 'Date': '2014-03-28', 'fillKey': 'C'}, 'RI': {'Count': 2, 'Date': '2014-03-28', 'fillKey': 'A'}, 'KS': {'Count': 21, 'Date': '2014-03-28', 'fillKey': 'B'},
+ 'MT': {'Count': 0, 'Date': '2014-03-28', 'fillKey': 'A'}, 'MS': {'Count': 4, 'Date': '2014-03-28', 'fillKey': 'A'}, 'SC': {'Count': 21, 'Date': '2014-03-28', 'fillKey': 'B'},
+ 'KY': {'Count': 125, 'Date': '2014-03-28', 'fillKey': 'E'}, 'OR': {'Count': 14, 'Date': '2014-03-28', 'fillKey': 'B'}, 'SD': {'Count': 0, 'Date': '2014-03-28', 'fillKey': 'A'}},
+ "9":{'WA': {'Count': 31, 'Date': '2014-03-29', 'fillKey': 'B'}, 'DE': {'Count': 2, 'Date': '2014-03-29', 'fillKey': 'A'}, 'DC': {'Count': 34, 'Date': '2014-03-29', 'fillKey': 'B'},
+ 'WI': {'Count': 60, 'Date': '2014-03-29', 'fillKey': 'C'}, 'WV': {'Count': 12, 'Date': '2014-03-29', 'fillKey': 'B'}, 'HI': {'Count': 0, 'Date': '2014-03-29', 'fillKey': 'A'},
+ 'FL': {'Count': 87, 'Date': '2014-03-29', 'fillKey': 'D'}, 'WY': {'Count': 1, 'Date': '2014-03-29', 'fillKey': 'A'}, 'NH': {'Count': 2, 'Date': '2014-03-29', 'fillKey': 'A'},
+ 'NJ': {'Count': 15, 'Date': '2014-03-29', 'fillKey': 'B'}, 'NM': {'Count': 6, 'Date': '2014-03-29', 'fillKey': 'A'}, 'TX': {'Count': 68, 'Date': '2014-03-29', 'fillKey': 'C'},
+ 'LA': {'Count': 17, 'Date': '2014-03-29', 'fillKey': 'B'}, 'NC': {'Count': 58, 'Date': '2014-03-29', 'fillKey': 'C'}, 'ND': {'Count': 4, 'Date': '2014-03-29', 'fillKey': 'A'},
+ 'NE': {'Count': 12, 'Date': '2014-03-29', 'fillKey': 'B'}, 'TN': {'Count': 66, 'Date': '2014-03-29', 'fillKey': 'C'}, 'NY': {'Count': 72, 'Date': '2014-03-29', 'fillKey': 'C'},
+ 'PA': {'Count': 52, 'Date': '2014-03-29', 'fillKey': 'C'}, 'CA': {'Count': 127, 'Date': '2014-03-29', 'fillKey': 'E'}, 'NV': {'Count': 20, 'Date': '2014-03-29', 'fillKey': 'B'},
+ 'VA': {'Count': 30, 'Date': '2014-03-29', 'fillKey': 'B'}, 'CO': {'Count': 20, 'Date': '2014-03-29', 'fillKey': 'B'}, 'AK': {'Count': 0, 'Date': '2014-03-29', 'fillKey': 'A'},
+ 'AL': {'Count': 20, 'Date': '2014-03-29', 'fillKey': 'B'}, 'AR': {'Count': 9, 'Date': '2014-03-29', 'fillKey': 'A'}, 'VT': {'Count': 2, 'Date': '2014-03-29', 'fillKey': 'A'},
+ 'IL': {'Count': 65, 'Date': '2014-03-29', 'fillKey': 'C'}, 'GA': {'Count': 71, 'Date': '2014-03-29', 'fillKey': 'C'}, 'IN': {'Count': 77, 'Date': '2014-03-29', 'fillKey': 'D'},
+ 'IA': {'Count': 15, 'Date': '2014-03-29', 'fillKey': 'B'}, 'OK': {'Count': 9, 'Date': '2014-03-29', 'fillKey': 'A'}, 'AZ': {'Count': 38, 'Date': '2014-03-29', 'fillKey': 'B'},
+ 'ID': {'Count': 2, 'Date': '2014-03-29', 'fillKey': 'A'}, 'CT': {'Count': 24, 'Date': '2014-03-29', 'fillKey': 'B'}, 'ME': {'Count': 0, 'Date': '2014-03-29', 'fillKey': 'A'},
+ 'MD': {'Count': 13, 'Date': '2014-03-29', 'fillKey': 'B'}, 'MA': {'Count': 44, 'Date': '2014-03-29', 'fillKey': 'B'}, 'OH': {'Count': 48, 'Date': '2014-03-29', 'fillKey': 'B'},
+ 'UT': {'Count': 7, 'Date': '2014-03-29', 'fillKey': 'A'}, 'MO': {'Count': 23, 'Date': '2014-03-29', 'fillKey': 'B'}, 'MN': {'Count': 26, 'Date': '2014-03-29', 'fillKey': 'B'},
+ 'MI': {'Count': 51, 'Date': '2014-03-29', 'fillKey': 'C'}, 'RI': {'Count': 3, 'Date': '2014-03-29', 'fillKey': 'A'}, 'KS': {'Count': 20, 'Date': '2014-03-29', 'fillKey': 'B'},
+ 'MT': {'Count': 3, 'Date': '2014-03-29', 'fillKey': 'A'}, 'MS': {'Count': 5, 'Date': '2014-03-29', 'fillKey': 'A'}, 'SC': {'Count': 27, 'Date': '2014-03-29', 'fillKey': 'B'},
+ 'KY': {'Count': 71, 'Date': '2014-03-29', 'fillKey': 'C'}, 'OR': {'Count': 11, 'Date': '2014-03-29', 'fillKey': 'B'}, 'SD': {'Count': 3, 'Date': '2014-03-29', 'fillKey': 'A'}},
+ "10":{'WA': {'Count': 22, 'Date': '2014-03-30', 'fillKey': 'B'}, 'DE': {'Count': 1, 'Date': '2014-03-30', 'fillKey': 'A'}, 'DC': {'Count': 24, 'Date': '2014-03-30', 'fillKey': 'B'},
+ 'WI': {'Count': 36, 'Date': '2014-03-30', 'fillKey': 'B'}, 'WV': {'Count': 9, 'Date': '2014-03-30', 'fillKey': 'A'}, 'HI': {'Count': 3, 'Date': '2014-03-30', 'fillKey': 'A'},
+ 'FL': {'Count': 46, 'Date': '2014-03-30', 'fillKey': 'B'}, 'WY': {'Count': 0, 'Date': '2014-03-30', 'fillKey': 'A'}, 'NH': {'Count': 1, 'Date': '2014-03-30', 'fillKey': 'A'},
+ 'NJ': {'Count': 23, 'Date': '2014-03-30', 'fillKey': 'B'}, 'NM': {'Count': 8, 'Date': '2014-03-30', 'fillKey': 'A'}, 'TX': {'Count': 51, 'Date': '2014-03-30', 'fillKey': 'C'},
+ 'LA': {'Count': 13, 'Date': '2014-03-30', 'fillKey': 'B'}, 'NC': {'Count': 48, 'Date': '2014-03-30', 'fillKey': 'B'}, 'ND': {'Count': 1, 'Date': '2014-03-30', 'fillKey': 'A'},
+ 'NE': {'Count': 12, 'Date': '2014-03-30', 'fillKey': 'B'}, 'TN': {'Count': 34, 'Date': '2014-03-30', 'fillKey': 'B'}, 'NY': {'Count': 100, 'Date': '2014-03-30', 'fillKey': 'E'},
+ 'PA': {'Count': 58, 'Date': '2014-03-30', 'fillKey': 'C'}, 'CA': {'Count': 111, 'Date': '2014-03-30', 'fillKey': 'E'}, 'NV': {'Count': 14, 'Date': '2014-03-30', 'fillKey': 'B'},
+ 'VA': {'Count': 33, 'Date': '2014-03-30', 'fillKey': 'B'}, 'CO': {'Count': 11, 'Date': '2014-03-30', 'fillKey': 'B'}, 'AK': {'Count': 1, 'Date': '2014-03-30', 'fillKey': 'A'},
+ 'AL': {'Count': 11, 'Date': '2014-03-30', 'fillKey': 'B'}, 'AR': {'Count': 3, 'Date': '2014-03-30', 'fillKey': 'A'}, 'VT': {'Count': 4, 'Date': '2014-03-30', 'fillKey': 'A'},
+ 'IL': {'Count': 50, 'Date': '2014-03-30', 'fillKey': 'C'}, 'GA': {'Count': 46, 'Date': '2014-03-30', 'fillKey': 'B'}, 'IN': {'Count': 32, 'Date': '2014-03-30', 'fillKey': 'B'},
+ 'IA': {'Count': 4, 'Date': '2014-03-30', 'fillKey': 'A'}, 'OK': {'Count': 9, 'Date': '2014-03-30', 'fillKey': 'A'}, 'AZ': {'Count': 16, 'Date': '2014-03-30', 'fillKey': 'B'},
+ 'ID': {'Count': 2, 'Date': '2014-03-30', 'fillKey': 'A'}, 'CT': {'Count': 34, 'Date': '2014-03-30', 'fillKey': 'B'}, 'ME': {'Count': 0, 'Date': '2014-03-30', 'fillKey': 'A'},
+ 'MD': {'Count': 7, 'Date': '2014-03-30', 'fillKey': 'A'}, 'MA': {'Count': 37, 'Date': '2014-03-30', 'fillKey': 'B'}, 'OH': {'Count': 23, 'Date': '2014-03-30', 'fillKey': 'B'},
+ 'UT': {'Count': 9, 'Date': '2014-03-30', 'fillKey': 'A'}, 'MO': {'Count': 21, 'Date': '2014-03-30', 'fillKey': 'B'}, 'MN': {'Count': 20, 'Date': '2014-03-30', 'fillKey': 'B'},
+ 'MI': {'Count': 58, 'Date': '2014-03-30', 'fillKey': 'C'}, 'RI': {'Count': 3, 'Date': '2014-03-30', 'fillKey': 'A'}, 'KS': {'Count': 3, 'Date': '2014-03-30', 'fillKey': 'A'},
+ 'MT': {'Count': 1, 'Date': '2014-03-30', 'fillKey': 'A'}, 'MS': {'Count': 4, 'Date': '2014-03-30', 'fillKey': 'A'}, 'SC': {'Count': 20, 'Date': '2014-03-30', 'fillKey': 'B'},
+ 'KY': {'Count': 68, 'Date': '2014-03-30', 'fillKey': 'C'}, 'OR': {'Count': 9, 'Date': '2014-03-30', 'fillKey': 'A'}, 'SD': {'Count': 2, 'Date': '2014-03-30', 'fillKey': 'A'}},
+ "11":{'WA': {'Count': 23, 'Date': '2014-03-31', 'fillKey': 'B'}, 'DE': {'Count': 3, 'Date': '2014-03-31', 'fillKey': 'A'}, 'DC': {'Count': 23, 'Date': '2014-03-31', 'fillKey': 'B'},
+ 'WI': {'Count': 24, 'Date': '2014-03-31', 'fillKey': 'B'}, 'WV': {'Count': 12, 'Date': '2014-03-31', 'fillKey': 'B'}, 'HI': {'Count': 0, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'FL': {'Count': 59, 'Date': '2014-03-31', 'fillKey': 'C'}, 'WY': {'Count': 2, 'Date': '2014-03-31', 'fillKey': 'A'}, 'NH': {'Count': 5, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'NJ': {'Count': 27, 'Date': '2014-03-31', 'fillKey': 'B'}, 'NM': {'Count': 5, 'Date': '2014-03-31', 'fillKey': 'A'}, 'TX': {'Count': 66, 'Date': '2014-03-31', 'fillKey': 'C'},
+ 'LA': {'Count': 19, 'Date': '2014-03-31', 'fillKey': 'B'}, 'NC': {'Count': 45, 'Date': '2014-03-31', 'fillKey': 'B'}, 'ND': {'Count': 3, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'NE': {'Count': 7, 'Date': '2014-03-31', 'fillKey': 'A'}, 'TN': {'Count': 38, 'Date': '2014-03-31', 'fillKey': 'B'}, 'NY': {'Count': 80, 'Date': '2014-03-31', 'fillKey': 'D'},
+ 'PA': {'Count': 34, 'Date': '2014-03-31', 'fillKey': 'B'}, 'CA': {'Count': 135, 'Date': '2014-03-31', 'fillKey': 'E'}, 'NV': {'Count': 6, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'VA': {'Count': 22, 'Date': '2014-03-31', 'fillKey': 'B'}, 'CO': {'Count': 29, 'Date': '2014-03-31', 'fillKey': 'B'}, 'AK': {'Count': 0, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'AL': {'Count': 15, 'Date': '2014-03-31', 'fillKey': 'B'}, 'AR': {'Count': 9, 'Date': '2014-03-31', 'fillKey': 'A'}, 'VT': {'Count': 3, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'IL': {'Count': 42, 'Date': '2014-03-31', 'fillKey': 'B'}, 'GA': {'Count': 87, 'Date': '2014-03-31', 'fillKey': 'D'}, 'IN': {'Count': 34, 'Date': '2014-03-31', 'fillKey': 'B'},
+ 'IA': {'Count': 6, 'Date': '2014-03-31', 'fillKey': 'A'}, 'OK': {'Count': 5, 'Date': '2014-03-31', 'fillKey': 'A'}, 'AZ': {'Count': 18, 'Date': '2014-03-31', 'fillKey': 'B'},
+ 'ID': {'Count': 3, 'Date': '2014-03-31', 'fillKey': 'A'}, 'CT': {'Count': 37, 'Date': '2014-03-31', 'fillKey': 'B'}, 'ME': {'Count': 0, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'MD': {'Count': 9, 'Date': '2014-03-31', 'fillKey': 'A'}, 'MA': {'Count': 60, 'Date': '2014-03-31', 'fillKey': 'C'}, 'OH': {'Count': 22, 'Date': '2014-03-31', 'fillKey': 'B'},
+ 'UT': {'Count': 6, 'Date': '2014-03-31', 'fillKey': 'A'}, 'MO': {'Count': 22, 'Date': '2014-03-31', 'fillKey': 'B'}, 'MN': {'Count': 14, 'Date': '2014-03-31', 'fillKey': 'B'},
+ 'MI': {'Count': 25, 'Date': '2014-03-31', 'fillKey': 'B'}, 'RI': {'Count': 4, 'Date': '2014-03-31', 'fillKey': 'A'}, 'KS': {'Count': 6, 'Date': '2014-03-31', 'fillKey': 'A'},
+ 'MT': {'Count': 0, 'Date': '2014-03-31', 'fillKey': 'A'}, 'MS': {'Count': 8, 'Date': '2014-03-31', 'fillKey': 'A'}, 'SC': {'Count': 16, 'Date': '2014-03-31', 'fillKey': 'B'},
+ 'KY': {'Count': 30, 'Date': '2014-03-31', 'fillKey': 'B'}, 'OR': {'Count': 9, 'Date': '2014-03-31', 'fillKey': 'A'}, 'SD': {'Count': 7, 'Date': '2014-03-31', 'fillKey': 'A'}},
+ "12":{'WA': {'Count': 10, 'Date': '2014-04-01', 'fillKey': 'B'}, 'DE': {'Count': 0, 'Date': '2014-04-01', 'fillKey': 'A'}, 'DC': {'Count': 19, 'Date': '2014-04-01', 'fillKey': 'B'},
+ 'WI': {'Count': 13, 'Date': '2014-04-01', 'fillKey': 'B'}, 'WV': {'Count': 3, 'Date': '2014-04-01', 'fillKey': 'A'}, 'HI': {'Count': 0, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'FL': {'Count': 25, 'Date': '2014-04-01', 'fillKey': 'B'}, 'WY': {'Count': 0, 'Date': '2014-04-01', 'fillKey': 'A'}, 'NH': {'Count': 2, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'NJ': {'Count': 14, 'Date': '2014-04-01', 'fillKey': 'B'}, 'NM': {'Count': 3, 'Date': '2014-04-01', 'fillKey': 'A'}, 'TX': {'Count': 33, 'Date': '2014-04-01', 'fillKey': 'B'},
+ 'LA': {'Count': 8, 'Date': '2014-04-01', 'fillKey': 'A'}, 'NC': {'Count': 20, 'Date': '2014-04-01', 'fillKey': 'B'}, 'ND': {'Count': 2, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'NE': {'Count': 5, 'Date': '2014-04-01', 'fillKey': 'A'}, 'TN': {'Count': 17, 'Date': '2014-04-01', 'fillKey': 'B'}, 'NY': {'Count': 50, 'Date': '2014-04-01', 'fillKey': 'C'},
+ 'PA': {'Count': 15, 'Date': '2014-04-01', 'fillKey': 'B'}, 'CA': {'Count': 84, 'Date': '2014-04-01', 'fillKey': 'D'}, 'NV': {'Count': 5, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'VA': {'Count': 10, 'Date': '2014-04-01', 'fillKey': 'B'}, 'CO': {'Count': 6, 'Date': '2014-04-01', 'fillKey': 'A'}, 'AK': {'Count': 1, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'AL': {'Count': 7, 'Date': '2014-04-01', 'fillKey': 'A'}, 'AR': {'Count': 2, 'Date': '2014-04-01', 'fillKey': 'A'}, 'VT': {'Count': 0, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'IL': {'Count': 18, 'Date': '2014-04-01', 'fillKey': 'B'}, 'GA': {'Count': 49, 'Date': '2014-04-01', 'fillKey': 'B'}, 'IN': {'Count': 17, 'Date': '2014-04-01', 'fillKey': 'B'},
+ 'IA': {'Count': 2, 'Date': '2014-04-01', 'fillKey': 'A'}, 'OK': {'Count': 6, 'Date': '2014-04-01', 'fillKey': 'A'}, 'AZ': {'Count': 7, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'ID': {'Count': 2, 'Date': '2014-04-01', 'fillKey': 'A'}, 'CT': {'Count': 12, 'Date': '2014-04-01', 'fillKey': 'B'}, 'ME': {'Count': 1, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'MD': {'Count': 9, 'Date': '2014-04-01', 'fillKey': 'A'}, 'MA': {'Count': 17, 'Date': '2014-04-01', 'fillKey': 'B'}, 'OH': {'Count': 8, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'UT': {'Count': 1, 'Date': '2014-04-01', 'fillKey': 'A'}, 'MO': {'Count': 6, 'Date': '2014-04-01', 'fillKey': 'A'}, 'MN': {'Count': 9, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'MI': {'Count': 11, 'Date': '2014-04-01', 'fillKey': 'B'}, 'RI': {'Count': 1, 'Date': '2014-04-01', 'fillKey': 'A'}, 'KS': {'Count': 7, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'MT': {'Count': 0, 'Date': '2014-04-01', 'fillKey': 'A'}, 'MS': {'Count': 2, 'Date': '2014-04-01', 'fillKey': 'A'}, 'SC': {'Count': 7, 'Date': '2014-04-01', 'fillKey': 'A'},
+ 'KY': {'Count': 17, 'Date': '2014-04-01', 'fillKey': 'B'}, 'OR': {'Count': 3, 'Date': '2014-04-01', 'fillKey': 'A'}, 'SD': {'Count': 5, 'Date': '2014-04-01', 'fillKey': 'A'}},
+ "13":{'WA': {'Count': 9, 'Date': '2014-04-02', 'fillKey': 'A'}, 'DE': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'}, 'DC': {'Count': 9, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'WI': {'Count': 17, 'Date': '2014-04-02', 'fillKey': 'B'}, 'WV': {'Count': 5, 'Date': '2014-04-02', 'fillKey': 'A'}, 'HI': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'FL': {'Count': 20, 'Date': '2014-04-02', 'fillKey': 'B'}, 'WY': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'}, 'NH': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'NJ': {'Count': 6, 'Date': '2014-04-02', 'fillKey': 'A'}, 'NM': {'Count': 1, 'Date': '2014-04-02', 'fillKey': 'A'}, 'TX': {'Count': 18, 'Date': '2014-04-02', 'fillKey': 'B'},
+ 'LA': {'Count': 1, 'Date': '2014-04-02', 'fillKey': 'A'}, 'NC': {'Count': 13, 'Date': '2014-04-02', 'fillKey': 'B'}, 'ND': {'Count': 1, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'NE': {'Count': 1, 'Date': '2014-04-02', 'fillKey': 'A'}, 'TN': {'Count': 4, 'Date': '2014-04-02', 'fillKey': 'A'}, 'NY': {'Count': 37, 'Date': '2014-04-02', 'fillKey': 'B'},
+ 'PA': {'Count': 14, 'Date': '2014-04-02', 'fillKey': 'B'}, 'CA': {'Count': 75, 'Date': '2014-04-02', 'fillKey': 'D'}, 'NV': {'Count': 8, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'VA': {'Count': 5, 'Date': '2014-04-02', 'fillKey': 'A'}, 'CO': {'Count': 6, 'Date': '2014-04-02', 'fillKey': 'A'}, 'AK': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'AL': {'Count': 2, 'Date': '2014-04-02', 'fillKey': 'A'}, 'AR': {'Count': 2, 'Date': '2014-04-02', 'fillKey': 'A'}, 'VT': {'Count': 2, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'IL': {'Count': 19, 'Date': '2014-04-02', 'fillKey': 'B'}, 'GA': {'Count': 39, 'Date': '2014-04-02', 'fillKey': 'B'}, 'IN': {'Count': 3, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'IA': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'}, 'OK': {'Count': 6, 'Date': '2014-04-02', 'fillKey': 'A'}, 'AZ': {'Count': 6, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'ID': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'}, 'CT': {'Count': 5, 'Date': '2014-04-02', 'fillKey': 'A'}, 'ME': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'MD': {'Count': 8, 'Date': '2014-04-02', 'fillKey': 'A'}, 'MA': {'Count': 13, 'Date': '2014-04-02', 'fillKey': 'B'}, 'OH': {'Count': 5, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'UT': {'Count': 4, 'Date': '2014-04-02', 'fillKey': 'A'}, 'MO': {'Count': 4, 'Date': '2014-04-02', 'fillKey': 'A'}, 'MN': {'Count': 6, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'MI': {'Count': 10, 'Date': '2014-04-02', 'fillKey': 'B'}, 'RI': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'}, 'KS': {'Count': 2, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'MT': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'}, 'MS': {'Count': 0, 'Date': '2014-04-02', 'fillKey': 'A'}, 'SC': {'Count': 4, 'Date': '2014-04-02', 'fillKey': 'A'},
+ 'KY': {'Count': 7, 'Date': '2014-04-02', 'fillKey': 'A'}, 'OR': {'Count': 4, 'Date': '2014-04-02', 'fillKey': 'A'}, 'SD': {'Count': 5, 'Date': '2014-04-02', 'fillKey': 'A'}},
+ "14":{'WA': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'}, 'DE': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'DC': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'WI': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'WV': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'HI': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'FL': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'WY': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'NH': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'NJ': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'NM': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'TX': {'Count': 4, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'LA': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'NC': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'ND': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'NE': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'TN': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'NY': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'PA': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'}, 'CA': {'Count': 8, 'Date': '2014-04-03', 'fillKey': 'A'}, 'NV': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'VA': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'CO': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'AK': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'AL': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'AR': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'}, 'VT': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'IL': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'GA': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'}, 'IN': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'IA': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'OK': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'AZ': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'ID': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'CT': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'ME': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'MD': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'MA': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'}, 'OH': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'UT': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'MO': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'MN': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'MI': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'RI': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'KS': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'MT': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'MS': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'SC': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'},
+ 'KY': {'Count': 1, 'Date': '2014-04-03', 'fillKey': 'A'}, 'OR': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}, 'SD': {'Count': 0, 'Date': '2014-04-03', 'fillKey': 'A'}}
+
+}
+}
+  chartParams.element = document.getElementById('chart_1')
+
+
+  var mapchart_1 = new Datamap(chartParams);
+
+   function addLegend2(layer, data, options) {
+    data = data || {};
+    if ( !this.options.fills ) {
+      return;
+    }
+
+    var html = '<ul class="list-inline">';
+    var label = '';
+    if ( data.legendTitle ) {
+      html = '<h4>' + data.legendTitle + '</h4>' + html;
+    }
+    for ( var fillKey in this.options.fills ) {
+
+      if ( fillKey === 'defaultFill') {
+        if (! data.defaultFillName ) {
+          continue;
+        }
+        label = data.defaultFillName;
+      } else {
+        if (data.labels && data.labels[fillKey]) {
+          label = data.labels[fillKey];
+        } else {
+          label= fillKey;
+        }
+      }
+      html += '<li class="key" style="border-top-color:' + this.options.fills[fillKey] + '">' + label + '</li>'
+    }
+    html += '</ul>';
+
+    var hoverover = d3.select( this.options.element ).append('div')
+      .attr('class', 'datamaps-legend')
+      .html(html);
+  }
+
+    mapchart_1.addPlugin("mylegend", addLegend2);
+
+    mapchart_1.mylegend({
+      labels: {A: "0", B: 10, C: 50, D: 75, E: '>100'}
+    })
+
+  // draw a bubble map if specified
+  if (chartParams.bubbles) {
+    var bubbles = chartParams.bubbles
+    mapchart_1.bubbles(bubbles)
+  }
+
+  if (chartParams.labels){
+    mapchart_1.labels()
+  }
+
+
+  setProjection = function( element, options ) {
+    var projection, path;
+
+      projection = d3.geo.albersUsa()
+        .scale(element.offsetWidth)
+        .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+
+    path = d3.geo.path()
+      .projection( projection );
+
+    return {path: path, projection: projection};
+  }
+</script>
+
+<style>
+.datamaps {
+  position: relative;
+}
+</style>
+
+  </body>
+</html>
