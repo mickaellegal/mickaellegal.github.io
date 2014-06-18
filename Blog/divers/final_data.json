@@ -1,0 +1,195 @@
+{
+ "name": "Main Categories",
+ "children": [
+  {
+   "name": "Wellness",
+   "children": [
+    {
+     "name": "Physical",
+     "children": [
+      {"name": "Sleep/Stress/Blood_pressure/Mood/Energy/Weight/Food & Drinks/Activity", "size": 1}
+     ]
+    },
+    {
+     "name": "Emotional",
+     "children": [
+      {"name": "Happiness/Mood/Sleep/Headache/Stress/Time working", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Health",
+   "children": [
+    {
+     "name": "Medication Management",
+     "children": [
+      {"name": "Blood glucose/Diabetes medicine/Insulin/Calories burned", "size": 1}
+     ]
+    },
+    {
+     "name": "Vital Sign Monitoring",
+     "children": [
+      {"name": "Weight/Blood pressure/Inhale count/Heart rate", "size": 1}
+     ]
+    },
+    {
+     "name": "Ilnesses",
+     "children": [
+      {"name": "Cold symptoms/Flu duration/Doctor visits/Medication general/Respiratory infection", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Fitness",
+   "children": [
+    {
+     "name": "Cardio",
+     "children": [
+      {"name": "Cycling/Elliptical/Time Exercising", "size": 1}
+     ]
+    },
+    {
+     "name": "Workout",
+     "children": [
+      {"name": "Crunches/Energy/Pushups/Yoga/Strech/Squats/Leg raises/Hyperextensions", "size": 1}
+     ]
+    },
+    {
+     "name": "Extreme Sports",
+     "children": [
+      {"name": "Cycling/Daily activity/Cross-country skiing/Running/Mountain biking", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Diet & Nutrition",
+   "children": [
+    {
+     "name": "Conscious Diet",
+     "children": [
+      {"name": "Alcohol Consumption/Appetite/Food & Drinks/Tea/Water/Coffee", "size": 1}
+     ]
+    },
+    {
+     "name": "Losing weight",
+     "children": [
+      {"name": "Food & Drinks/Calories burned/Fat ratio/Weight", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Finance",
+   "children": [
+    {
+     "name": "Personal Finance",
+     "children": [
+      {"name": "Time working/Savings/Spendings/Calendar", "size": 1}
+     ]
+    },
+    {
+     "name": "Charity",
+     "children": [
+      {"name": "Calendar/Fundraising/Donations/Running", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Family",
+   "children": [
+    {"name": "Photos", "size": 8258},
+    {
+     "name": "Baby",
+     "children": [
+      {"name": "Baby height/Baby weight/Baby mood/Baby crying/Sleep/Age/Feeding", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Social",
+   "children": [
+    {
+     "name": "Social Status",
+     "children": [
+      {"name": "Klout score/Linkedin connections/Tweets/Twitter user mentions/Facebook friends/Facebook status", "size": 1}
+     ]
+    },
+    {
+     "name": "Status Update",
+     "children": [
+      {"name": "Checkin/Mail/Tweets/Mood/Calendar/Facebook status/Music/Spending/Weather", "size": 1}
+    
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Leisure",
+   "children": [
+    {
+     "name": "Travels",
+     "children": [
+      {"name": "My Photos/Destination/Music/Readings", "size": 1}
+     ]
+    },
+    {
+     "name": "Media Consumption",
+     "children": [
+      {"name": "TV Consumption/Books read/Music", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Self-Development",
+   "children": [
+    {
+     "name": "Develop new skills",
+     "children": [
+      {"name": "Time working/Calendar/Reading", "size": 1}
+     ]
+    },
+    {
+     "name": "Create/Kill Habits",
+     "children": [
+      {"name": "Alcohol Consumption/Sexual Activity/Sleep/Tooth Brushing/Smoking", "size": 1}
+     ]
+    },
+    {
+     "name": "Productivity/Achievement",
+     "children": [
+      {"name": "Sent emails/Tasks completed/Calendar", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Life-Logging",
+   "children": [
+    {
+     "name": "Hollistic",
+     "children": [
+      {"name": "Calories burned/Daily Activity/Energy/Workout/Fat ratio/Food & Drinks/Medication/Happiness/Headache/Menstrual cycle & medication/Donations/Savings/Spendings/Sleep", "size": 1}
+     ]
+    },
+    {
+     "name": "Specific",
+     "children": [
+      {"name": "Food & Drinks", "size": 1}
+     ]
+    },
+    {
+     "name": "Random",
+     "children": [
+      {"name": "Crunches/Stock prices", "size": 1}
+     ]
+    }
+   ]
+  }
+ ]
+}
